@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Course</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="back" href="/">⬅ Back</a>
+
+<h2>Add Course</h2>
+<form method="POST">
+  <input name="title" placeholder="Title" required>
+  <input name="code" placeholder="Code" required>
+  <input name="creditHours" placeholder="Credit Hours" required>
+  <button>Add</button>
+</form>
+
+<h3>Existing Courses</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Code</th>
+      <th>Credit Hours</th>
+      <th>Actions</th> <!-- New column -->
+    </tr>
+  </thead>
+  <tbody>
+    <% courses.forEach(c => { %>
+      <tr>
+        <td><%= c.title %></td>
+        <td><%= c.code %></td>
+        <td><%= c.creditHours %></td>
+        <td>
+          <!-- Edit button -->
+          <a href="/edit-course/<%= c._id %>">Edit</a>
+
+          <!-- Delete button -->
+          <form action="/delete-course/<%= c._id %>" method="POST">
+            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+</body>
+</html>

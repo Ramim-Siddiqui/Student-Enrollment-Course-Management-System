@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Student</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="back" href="/">⬅ Back</a>
+
+<h2>Add Student</h2>
+<form method="POST">
+  <input name="student_id" placeholder="Student ID" required>
+  <input name="name" placeholder="Name" required>
+  <input name="email" placeholder="Email" required>
+  <input name="age" placeholder="Age" required>
+  <button>Add</button>
+</form>
+
+<h3>Existing Students</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Student ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Age</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% students.forEach(s => { %>
+      <tr>
+        <td><%= s.student_id %></td>
+        <td><%= s.name %></td>
+        <td><%= s.email %></td>
+        <td><%= s.age %></td>
+        <td>
+          <!-- Edit button -->
+          <a href="/edit-student/<%= s._id %>">Edit</a>
+
+          <!-- Delete button -->
+          <form action="/delete-student/<%= s._id %>" method="POST">
+  <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+</form>
+
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+</body>
+</html>

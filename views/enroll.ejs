@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enroll</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<a class="back" href="/">⬅ Back</a>
+
+<h2>Enroll Student</h2>
+
+<form method="POST">
+  <select name="studentId" required>
+    <% students.forEach(s => { %>
+      <option value="<%= s._id %>"><%= s.name %></option>
+    <% }) %>
+  </select>
+
+  <select name="courseId" required>
+    <% courses.forEach(c => { %>
+      <option value="<%= c._id %>"><%= c.title %></option>
+    <% }) %>
+  </select>
+
+  <button type="submit">Enroll</button>
+</form>
+
+<h3>Existing Enrollments</h3>
+
+<table>
+  <tr>
+    <th>Student Name</th>
+    <th>Course Title</th>
+  </tr>
+
+  <% if (enrollments.length === 0) { %>
+    <tr>
+      <td colspan="2" style="text-align:center;">No enrollments yet</td>
+    </tr>
+  <% } %>
+
+  <% enrollments.forEach(e => { %>
+    <tr>
+      <td><%= e.studentName %></td>
+      <td><%= e.courseTitle %></td>
+    </tr>
+  <% }) %>
+</table>
+
+</body>
+</html>

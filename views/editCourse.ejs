@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Course</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="back" href="/add-course">⬅ Back</a>
+
+<h2>Edit Course</h2>
+<form action="/edit-course/<%= course._id %>" method="POST">
+  <input type="text" name="title" value="<%= course.title %>" required>
+  <input type="text" name="code" value="<%= course.code %>" required>
+  <input type="number" name="creditHours" value="<%= course.creditHours %>" required>
+  <button>Update</button>
+</form>
+</body>
+</html>

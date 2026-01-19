@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Records</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<a class="back" href="/">⬅ Back</a>
+
+<h1>All Records</h1>
+
+<h2>Students</h2>
+<table>
+  <tr>
+    <th>Student ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Age</th>
+  </tr>
+  <% students.forEach(s => { %>
+    <tr>
+      <td><%= s.student_id %></td>
+      <td><%= s.name %></td>
+      <td><%= s.email %></td>
+      <td><%= s.age %></td>
+    </tr>
+  <% }) %>
+</table>
+
+<h2>Courses</h2>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Code</th>
+    <th>Credit Hours</th>
+  </tr>
+  <% courses.forEach(c => { %>
+    <tr>
+      <td><%= c.title %></td>
+      <td><%= c.code %></td>
+      <td><%= c.creditHours %></td>
+    </tr>
+  <% }) %>
+</table>
+
+<h2>Enrollments</h2>
+<table>
+  <tr>
+    <th>Student</th>
+    <th>Course</th>
+  </tr>
+  <% enrollments.forEach(e => { %>
+    <tr>
+      <td><%= e.studentName %></td>
+      <td><%= e.courseTitle %></td>
+    </tr>
+  <% }) %>
+</table>
+
+</body>
+</html>
