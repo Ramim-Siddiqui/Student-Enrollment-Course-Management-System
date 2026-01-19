@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 ======================= */
 mongoose
   .connect(
-    "mongodb+srv://user1:CFyl8zxpvibJfzH2@cluster0.9nfm9fk.mongodb.net/?appName=Cluster0"
+    "Mongo db cluster URL"
   )
   .then(() => console.log("MongoDB Atlas Connected"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
