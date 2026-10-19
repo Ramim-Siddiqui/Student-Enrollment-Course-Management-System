@@ -81,7 +81,7 @@ A small server-rendered web application for managing students, courses, and the 
 
 | Variable | Required | Description |
 |---|---|---|
-| `MONGODB_URI` | yes | MongoDB connection string. Keep the real value out of version control; `.env` is git-ignored. |
+| `MONGODB_URI` | yes | MongoDB connection string. The server exits at startup with an error if it is not set. Keep the real value out of version control; `.env` is git-ignored. |
 | `PORT` | no | Port the HTTP server listens on. Defaults to `3000`. |
 
 ## Routes
@@ -102,7 +102,7 @@ All routes are defined in `server.js`. Forms submit with `POST` and redirect bac
 | POST | `/edit-course/:id` | Update a course, then redirect to `/add-course` |
 | POST | `/delete-course/:id` | Delete a course, then redirect to `/add-course` |
 | GET | `/enroll` | Enrollment form (student and course dropdowns) plus the enrollment table |
-| POST | `/enroll` | Create an enrollment for the selected student and course, then redirect to `/enroll` |
+| POST | `/enroll` | Create an enrollment for the selected student and course, then redirect to `/enroll` (responds `404` if either record is missing) |
 | GET | `/list` | Read-only page listing all students, courses and enrollments |
 
 Static files in `public/` are served from the site root (for example `/style.css`).
@@ -117,7 +117,7 @@ Static files in `public/` are served from the site root (for example `/style.css
 
 - **No authentication or authorization** - every page and action is open to anyone who can reach the server.
 - **No server-side validation** - the only validation is the HTML `required` attribute; `req.body` is passed straight to Mongoose. Student IDs and course codes are not checked for uniqueness, and a student can be enrolled in the same course more than once.
-- **Minimal error handling** - most route handlers have no `try/catch`. Express 4 does not catch rejected promises from `async` handlers, so a malformed `:id` (Mongoose `CastError`), a missing student or course on `POST /enroll`, or a database outage becomes an unhandled rejection, which terminates the process on Node.js 15 and later. Wrapping handlers (or moving to Express 5) and adding a central error handler would fix this.
+- **Plain-text error responses** - a central error handler catches errors thrown by `async` route handlers (a malformed `:id` returns `404 Record not found`, anything else `500 Something went wrong`), but these are plain-text responses rather than rendered error pages.
 - **Denormalized enrollments** - `studentName` and `courseTitle` are copied into each enrollment when it is created, so renaming a student or course does not update existing enrollments, and deleting a student or course leaves its enrollments behind. There is also no way to remove an enrollment from the UI.
 - **No tests, linting or CI** - a test suite (for example Jest + Supertest with an in-memory MongoDB) would be a natural next step.
-- **No custom 404 page, pagination, search or sorting** - unknown URLs get the Express default "Cannot GET" response, and every list page loads the whole collection.
+- **No custom 404 page, pagination, search or sorting** - unknown URLs get a plain-text `404 Page not found` response, and every list page loads the whole collection.
