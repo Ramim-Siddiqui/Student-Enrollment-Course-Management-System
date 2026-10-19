@@ -1,5 +1,7 @@
 # Student Enrollment & Course Management System
 
+**Live demo:** https://student-enrollment-system-lime.vercel.app (deployed on Vercel with MongoDB Atlas; shared demo data, please keep it tidy)
+
 A small server-rendered web application for managing students, courses, and the enrollments that link them. It is built with Node.js, Express and EJS on top of MongoDB (via Mongoose), and provides a plain HTML interface for adding, editing, deleting and listing records. There is no client-side framework: every page is rendered on the server and every action is a standard HTML form submission.
 
 ## Features
