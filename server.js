@@ -32,6 +32,11 @@ mongoose
   .catch((err) => console.error("MongoDB Connection Error:", err));
 
 /* =======================
+   Health check (no database access)
+======================= */
+app.get("/healthz", (req, res) => res.json({ status: "ok" }));
+
+/* =======================
    Home
 ======================= */
 app.get("/", wrap(async (req, res) => {
