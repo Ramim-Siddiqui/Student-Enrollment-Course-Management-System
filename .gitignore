@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Environment variables (real credentials live here; see .env.example)
+.env
+
+# Logs
+npm-debug.log*
+
+# OS / editor files
+.DS_Store
+.idea/
+.vscode/

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -19,9 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
    MongoDB Connection
 ======================= */
 mongoose
-  .connect(
-    "Mongo db cluster URL"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB Atlas Connected"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
 
@@ -140,6 +139,7 @@ app.get("/list", async (req, res) => {
 /* =======================
    Server Start
 ======================= */
-app.listen(3000, () => {
-  console.log("🚀 Server running at http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
